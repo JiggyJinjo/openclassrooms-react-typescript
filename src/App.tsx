@@ -6,7 +6,7 @@ import ColorBlock from './ColorBlock';
 import ProductContainer from './Products/ProductContainer';
 import Product from './Models/Product';
 
-const PRODUCTS = [
+const productsFromAPI = [
   new Product(1, true, 459.99, 'Musical Instruments', 'Clarinet'),
   new Product(2, true, 5000, 'Musical Instruments', 'Harpsicord'),
   new Product(3, false, 11000, 'Musical Instruments', 'Fortepiano'),
@@ -21,7 +21,7 @@ function App() {
       {/* <Clock /> */}
       {/* <MyComponent /> */}
       {/* <ColorBlock /> */}
-      <ProductContainer products={PRODUCTS} />
+      <ProductContainer products={productsFromAPI} />
     </div>
   );
 }

@@ -43,14 +43,15 @@ class ProductTable extends Component<Props, State> {
     return products.sort(sortByColumnAndDirection);
   }
 
-  handleSort(column: string, direction: string) {
+  handleSort = (column: string, direction: string) =>
     this.setState({
       sort: {
         column,
         direction,
       },
     });
-  }
+
+  destroyProduct = (productID: number) => this.props.onProductDelete(productID);
 
   render() {
     const { filterText, inStockOnly, onProductDelete } = this.props;
@@ -65,7 +66,7 @@ class ProductTable extends Component<Props, State> {
         <ProductTableRow
           product={product}
           key={product.id}
-          onDestroy={(productID: number) => onProductDelete(productID)}
+          onDestroy={this.destroyProduct}
         />
       ));
     return (
@@ -76,16 +77,12 @@ class ProductTable extends Component<Props, State> {
               <ProductTableHeader
                 column="name"
                 sort={sort}
-                handleSort={(col: string, dir: string) =>
-                  this.handleSort(col, dir)
-                }
+                handleSort={this.handleSort}
               />
               <ProductTableHeader
                 column="price"
                 sort={sort}
-                handleSort={(col: string, dir: string) =>
-                  this.handleSort(col, dir)
-                }
+                handleSort={this.handleSort}
               />
             </tr>
           </thead>

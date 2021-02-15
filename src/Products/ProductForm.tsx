@@ -19,7 +19,7 @@ class ProductForm extends Component<Props, State> {
     return !!value;
   }
 
-  handleSave(e: React.FormEvent<HTMLInputElement>) {
+  handleSave = (e: React.FormEvent<HTMLInputElement>) => {
     const {
       product: { name },
       product,
@@ -28,41 +28,38 @@ class ProductForm extends Component<Props, State> {
       this.props.onFormSubmit(product);
     }
     e.preventDefault();
-  }
+  };
 
-  nameChanged(e: React.ChangeEvent<HTMLInputElement>) {
+  nameChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState((prevState) => {
       const { value } = e.target;
+      prevState.product.name = value;
       const isError = !value;
 
-      prevState.product.name = value;
       return { product: prevState.product, isError };
     });
-  }
 
-  categoryChanged(e: React.ChangeEvent<HTMLInputElement>) {
+  categoryChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState((prevState) => {
       prevState.product.category = e.target.value;
       return { product: prevState.product };
     });
-  }
 
-  priceChanged(e: React.ChangeEvent<HTMLInputElement>) {
+  priceChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState((prevState) => {
       const { value } = e.target;
       prevState.product.price = value === '' ? 0 : parseInt(value, 10);
       return { product: prevState.product };
     });
-  }
 
-  isInStockChanged(e: React.ChangeEvent<HTMLInputElement>) {
+  isInStockChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState((prevState) => {
       prevState.product.isInStock = e.target.checked;
       return { product: prevState.product };
     });
-  }
 
   render() {
+    const { category, price, name, isInStock } = this.state.product;
     return (
       <form>
         <h3>Enter a new product</h3>
@@ -73,8 +70,8 @@ class ProductForm extends Component<Props, State> {
             <input
               type="text"
               name="name"
-              onChange={(e) => this.nameChanged(e)}
-              value={this.state.product.name}
+              onChange={this.nameChanged}
+              value={name}
             />
             <span
               style={{
@@ -94,8 +91,8 @@ class ProductForm extends Component<Props, State> {
             <input
               type="text"
               name="category"
-              onChange={(e) => this.categoryChanged(e)}
-              value={this.state.product.category}
+              onChange={this.categoryChanged}
+              value={category}
             />
           </label>
         </p>
@@ -106,8 +103,8 @@ class ProductForm extends Component<Props, State> {
             <input
               type="number"
               name="price"
-              onChange={(e) => this.priceChanged(e)}
-              value={this.state.product.price}
+              onChange={this.priceChanged}
+              value={price}
             />
           </label>
         </p>
@@ -116,13 +113,13 @@ class ProductForm extends Component<Props, State> {
             <input
               type="checkbox"
               name="stocked"
-              onChange={(e) => this.isInStockChanged(e)}
-              checked={this.state.product.isInStock}
+              onChange={this.isInStockChanged}
+              checked={isInStock}
             />
             &nbsp;In stock?
           </label>
         </p>
-        <input type="submit" value="Save" onClick={(e) => this.handleSave(e)} />
+        <input type="submit" value="Save" onClick={this.handleSave} />
       </form>
     );
   }

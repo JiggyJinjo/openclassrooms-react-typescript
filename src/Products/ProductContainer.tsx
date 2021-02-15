@@ -21,24 +21,21 @@ class ProductContainer extends Component<Props, State> {
     inStockOnly: false,
   };
 
-  handleFilter(filterInput: Pick<State, 'filterText' | 'inStockOnly'>) {
+  handleFilter = (filterInput: Pick<State, 'filterText' | 'inStockOnly'>) =>
     this.setState(filterInput);
-  }
 
-  addProduct(product: Product) {
+  addProduct = (product: Product) =>
     this.setState((prevState) => {
       const newProduct = { ...product, id: prevState.products.length + 1 };
       const products = [...prevState.products, newProduct];
       return { products };
     });
-  }
 
-  deleteProduct(productID: number) {
+  deleteProduct = (productID: number) =>
     this.setState((prevState) => {
       const products = prevState.products.filter((p) => p.id !== productID);
       return { products };
     });
-  }
 
   render() {
     const { products, filterText, inStockOnly } = this.state;
@@ -47,19 +44,15 @@ class ProductContainer extends Component<Props, State> {
         <ProductFilters
           filterText={filterText}
           inStockOnly={inStockOnly}
-          onFilter={(filterInput: Pick<State, 'filterText' | 'inStockOnly'>) =>
-            this.handleFilter(filterInput)
-          }
+          onFilter={this.handleFilter}
         />
         <ProductTable
           products={products}
           filterText={filterText}
           inStockOnly={inStockOnly}
-          onProductDelete={(productID: number) => this.deleteProduct(productID)}
+          onProductDelete={this.deleteProduct}
         />
-        <ProductForm
-          onFormSubmit={(product: Product) => this.addProduct(product)}
-        />
+        <ProductForm onFormSubmit={this.addProduct} />
       </div>
     );
   }

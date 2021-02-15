@@ -9,11 +9,19 @@ type Props = {
 };
 
 class ProductTableRow extends Component<Props> {
-  render() {
+  destroy = () => {
     const {
-      product: { isInStock, name, price, id },
+      product: { id },
       onDestroy,
     } = this.props;
+    onDestroy(id);
+  };
+
+  render() {
+    const {
+      product: { isInStock, name, price },
+    } = this.props;
+
     return (
       <tr>
         <td>
@@ -21,7 +29,7 @@ class ProductTableRow extends Component<Props> {
         </td>
         <td>{price}</td>
         <td>
-          <button type="button" onClick={() => onDestroy(id)}>
+          <button type="button" onClick={this.destroy}>
             x
           </button>
         </td>

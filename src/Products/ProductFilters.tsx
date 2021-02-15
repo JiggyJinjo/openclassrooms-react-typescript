@@ -9,18 +9,15 @@ type Props = {
 };
 
 class ProductFilters extends Component<Props> {
-  filterTextChanged(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
+  filterTextChanged = (e: ChangeEvent<HTMLInputElement>) =>
     this.props.onFilter({
-      filterText: value,
+      filterText: e.target.value,
     });
-  }
-  isInStockChanged(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.checked;
+
+  isInStockChanged = (e: ChangeEvent<HTMLInputElement>) =>
     this.props.onFilter({
-      inStockOnly: value,
+      inStockOnly: e.target.checked,
     });
-  }
 
   render() {
     const { filterText, inStockOnly } = this.props;
@@ -30,7 +27,7 @@ class ProductFilters extends Component<Props> {
           type="text"
           placeholder="Search..."
           value={filterText}
-          onChange={(e) => this.filterTextChanged(e)}
+          onChange={this.filterTextChanged}
         />
 
         <p>
@@ -38,7 +35,7 @@ class ProductFilters extends Component<Props> {
             <input
               type="checkbox"
               checked={inStockOnly}
-              onChange={(e) => this.isInStockChanged(e)}
+              onChange={this.isInStockChanged}
             />
             Only show products in stock
           </label>

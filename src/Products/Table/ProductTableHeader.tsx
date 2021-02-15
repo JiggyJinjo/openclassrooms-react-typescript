@@ -9,10 +9,10 @@ type Props = {
 };
 
 class ProductTableHeader extends Component<Props> {
-  handleSort(e: React.MouseEvent<HTMLButtonElement>) {
-    this.props.handleSort(this.props.column, e.currentTarget.name);
-    console.log(e);
-  }
+  handleSort = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { handleSort, column } = this.props;
+    handleSort(column, e.currentTarget.name);
+  };
 
   render() {
     const {
@@ -26,7 +26,7 @@ class ProductTableHeader extends Component<Props> {
         <button
           type="button"
           className={currentSort === 'asc' ? 'selected' : undefined}
-          onClick={(e) => this.handleSort(e)}
+          onClick={this.handleSort}
           name="asc"
         >
           ↑
@@ -34,7 +34,7 @@ class ProductTableHeader extends Component<Props> {
         <button
           type="button"
           className={currentSort === 'desc' ? 'selected' : undefined}
-          onClick={(e) => this.handleSort(e)}
+          onClick={this.handleSort}
           name="desc"
         >
           ↓
